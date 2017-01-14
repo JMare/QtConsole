@@ -22,6 +22,7 @@
 #include <QListWidget>
 #include <QDebug>
 
+enum ResultType {Error, Partial, Complete};
 /**
  * Subclasssing QListWidget
  *
@@ -121,7 +122,6 @@ public:
 
     void correctPathName(QString& pathName);
 
-    enum ResultType {Error, Partial, Complete};
 
 private:
     void dropEvent( QDropEvent * event);

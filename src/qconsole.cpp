@@ -611,19 +611,24 @@ void QConsole::pExecCommand(const QString &command)
 
 void QConsole::printCommandExecutionResults(const QString &result, ResultType type)
 {
+    QString newResult = result;
     //According to the return value, display the result either in red or in blue
     if (type == ResultType::Error)
         setTextColor(errColor_);
     else
         setTextColor(outColor_);
 
-    append(result);
+    if (type == ResultType::Complete || type == ResultType::Error) {
+        if (!result.endsWith("\n")){
+            newResult.append("\n");
+        }
+    }
+
+    //display result
+    append(newResult);
 
     //Display the prompt again
     if (type == ResultType::Complete || type == ResultType::Error) {
-        if (!result.endsWith("\n"))
-            append("\n");
-
         isLocked = false;
         displayPrompt();
     }
